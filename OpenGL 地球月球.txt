@@ -1,0 +1,120 @@
+
+#include <GL/glut.h>
+#include <stdlib.h>
+
+static int year = 0, day = 0;
+
+void init(void) 
+{
+	glClearColor (0.0, 0.0, 0.0, 0.0);//黑色背景
+
+	glShadeModel (GL_FLAT);//阴影平滑
+}
+ 
+//绘图函数
+void display(void)
+{
+	glClear (GL_COLOR_BUFFER_BIT);//清除屏幕缓存
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity ();//重置当前的模型观察矩阵
+
+	gluLookAt (0.0, 40, 80, 5.0, 0, 0.0, 0.0, 1.0, 0.0);
+	//glColor3f (1.0, 1.0, 1.0);
+
+	glPushMatrix();
+
+	//glTranslatef (0, 0.0,-5);
+	//绘制坐标系
+	glColor3f (1.0, 0, 0);
+	glBegin(GL_LINES);
+	glVertex3f ( 0,0,0);
+	glVertex3f ( 10,0,0);
+	
+	glColor3f (0, 1.0, 0);
+	
+	glVertex3f ( 0,0,0);
+	glVertex3f ( 0,10,0);
+
+	glColor3f (0, 0,1.0);
+
+	glVertex3f ( 0,0,0);
+	glVertex3f ( 0,0,10);
+	glEnd();
+
+
+
+	glColor3f (1.0, 1.0, 1.0);
+
+	glutWireTeapot(10);
+
+	//glutWireSphere(10, 20, 16);   /* draw sun */
+	//glRotatef ((GLfloat) year, 0.0, 1.0, 0.0);
+	//glTranslatef (20, 0.0, 0.0);
+	//glRotatef ((GLfloat) day, 0.0, 1.0, 0.0);
+	//glutWireSphere(5, 10, 8);    /* draw smaller planet */
+
+	glPopMatrix();
+	glutSwapBuffers();
+}
+
+//重绘函数
+void reshape (int w, int h)
+{
+	glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+
+	glMatrixMode (GL_PROJECTION);
+	glLoadIdentity ();
+	gluPerspective(60.0, (GLfloat) w/(GLfloat) h, 0.1, 300.0);///////////
+	glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+	//gluLookAt (0.0, 0, 40, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+}
+
+//按键响应
+void keyboard (unsigned char key, int x, int y)
+{
+	switch (key) {
+	case 'd':
+		day = (day + 10) % 360;
+		glutPostRedisplay();
+		break;
+	case 'D':
+		day = (day - 10) % 360;
+		glutPostRedisplay();
+		break;
+	case 'y':
+		year = (year + 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'Y':
+		year = (year - 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 27:
+		exit(0);
+		break;
+	default:
+		break;
+	}
+}
+
+int main(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
+	glutInitWindowSize (500, 500); 
+	glutInitWindowPosition (100, 100);
+	glutCreateWindow (argv[0]);
+	init ();
+	glutDisplayFunc(display); 
+	glutReshapeFunc(reshape);
+	glutKeyboardFunc(keyboard);
+	glutMainLoop();
+	return 0;
+}
+
+
+
+
+
+--------------------------------------------------------------------

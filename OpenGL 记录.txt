@@ -1,0 +1,46 @@
+OpenGL 记录
+
+
+视图变换：
+gluLookAt();//相当于平移和旋转的组合；可以自定义（相当于对模型进行反的变换；）
+
+模型变换：
+
+	glScalef()
+	glTranslatef()
+	glRotatef();
+	
+投影变换：
+	透视投影：perspective projection
+		//选择矩阵模式（模型、视图、纹理）
+		glMatrixMode(GL_PROJECTION);//选择矩阵模式（矩阵堆栈）：使用投影矩阵
+		glLoadIdentity();//把当前可以修改的矩阵清除为单位矩阵
+		glFrustum();//定义了一个视景体六个截取平面；
+		
+		//gluPerspective();//更常用
+		glMatrixMode(GL_MODELVIEW);//恢复成为模型视图矩阵
+		
+	正投影：rothographic projecton
+		glOrtho();
+		
+视口变换：
+	glViewport();//在reshape 函数内部调用；
+	//投影的纵横比应该与视景体的纵横比相同，防止图形发生变形；
+	
+	
+	
+	
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
