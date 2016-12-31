@@ -1,2 +1,2 @@
 # OpenGL
-some tests bout opengl
+some tests about opengl
